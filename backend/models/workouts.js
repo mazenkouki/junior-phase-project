@@ -10,7 +10,7 @@ getAll : (cb) =>{
 },
 
 getOne : (id,cb)=>{
-    var sql = `select * from workouts where id = ?`
+    var sql = `select * from workouts where idworkouts = ?`
     db.query(sql,id,(err,results)=>{
         cb(err,results)
     })
@@ -23,16 +23,28 @@ add : (values,cb) =>{
     })
 },
 
-delete : (id,cb)=>{
-    var sql = `delete from workouts where id = ?`
+del : (id,cb)=>{
+    var sql = `delete from workouts where idworkouts= ?`
     db.query(sql,id,(err,results)=>{
         cb(err,results)
     })
 },
 
-update : (values,cb) =>{
-    var sql = `UPDATE workouts SET title =?, reps =?, weight = ? WHERE id = ?`
-    db.query(sql,values,(err,results)=>{
+updateTitle : (values,id,cb) =>{
+    var sql = `UPDATE workouts SET title =? WHERE idworkouts = ?`
+    db.query(sql,[values,id],(err,results)=>{
+        cb(err,results)
+    })
+},
+updateReps: (values,id,cb) =>{
+    var sql = `UPDATE workouts SET reps =? WHERE idworkouts = ?`
+    db.query(sql,[values,id],(err,results)=>{
+        cb(err,results)
+    })
+},
+updateWeigth: (values,id,cb) =>{
+    var sql = `UPDATE workouts SET weight =? WHERE idworkouts = ?`
+    db.query(sql,[values,id],(err,results)=>{
         cb(err,results)
     })
 }

@@ -12,9 +12,10 @@ app.use(cors());
 
 
 const workouts = require("./routes/workouts")
-
+const userRoute = require("./routes/user")
 
 app.use("/workouts", workouts)
+app.use("/user", userRoute)
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/popular",
@@ -25,18 +26,14 @@ mongoose
 var {popular} = require("./controllers/popular")
 
 app.post('/add', (req, res) => {
-    var newPopular = new popular({
-      name: req.body.name,
-      img: req.body.img,
-      description: req.body.description,
-      id : req.body.id
-    })
-    newPopular.save().then((data) => {
-      res.json(data)
-    })
-      .catch((err) => {
-        res.status(404).send(err)
-      })
+  console.log(req.body);
+    const name=req.body.name;
+    const img=req.body.img;
+    const description =req.body.description;
+    const id = req.body.id
+    const Popular = new popular({ name, img, description,id});
+    Popular.save().then(()=>res.json(" added ")).catch(err=>res.json(err))
+
   })
 
   app.get("/get", (req, res) => {
@@ -48,6 +45,7 @@ app.post('/add', (req, res) => {
     });
   })
 
+  
 
  
 

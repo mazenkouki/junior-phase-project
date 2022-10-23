@@ -1,14 +1,14 @@
 const express= require("express")
 const workouts = express.Router()
-const controllers= require("../controllers/workouts")
+const {del,getAll,getOne,add,updateTitle,updateReps, updateWeight}= require("../controllers/workouts")
 
 
-workouts.get("/getAll" , controllers.getAll)
-workouts.get("/:name" , controllers.getOne)
-workouts.post("/add" , controllers.add)
-workouts.delete("/:id", controllers.delete)
-workouts.put("/:id",controllers.update)
-
-
+workouts.get("/getAll" , getAll)
+workouts.get("/:name" , getOne)
+workouts.post("/add" , add)
+workouts.delete("/:id", del)
+workouts.put("/title/:id",updateTitle)
+workouts.put("/reps/:id",updateReps)
+workouts.put("/weight/:id",updateWeight)
 
 module.exports = workouts
